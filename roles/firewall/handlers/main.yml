@@ -1,0 +1,13 @@
+---
+
+- name : restart iptables
+  shell: iptables-restore < /etc/iptables/rules.v4
+  listen: restart iptable-related services
+
+- name: restart fail2ban
+  systemd: state=restarted enabled=yes name=fail2ban
+  listen: restart iptable-related services
+
+- name: restart docker
+  systemd: state=restarted enabled=yes name=docker
+  listen: restart iptable-related services

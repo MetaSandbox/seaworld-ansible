@@ -1,0 +1,17 @@
+---
+
+- name: install iptables-persistent
+  apt: pkg=iptables-persistent state=present
+
+- name: install fail2ban
+  apt: pkg=fail2ban state=present
+
+- name: copy fail2ban config (/etc/fail2ban/jail.d/ROLE.conf)
+  copy: src=fail2ban/{{ RANCHER_ROLE }}.conf dest=/etc/fail2ban/jail.d/{{ RANCHER_ROLE }}
+  notify:
+    - restart fail2ban
+
+- name: copy firewall rules
+  copy: src=firewall/{{ RANCHER_ROLE }}.rules.v4 dest=/etc/iptables/rules.v4
+  notify:
+    - restart iptable-related services
