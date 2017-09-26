@@ -1,0 +1,10 @@
+---
+
+- name: install kerberos
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - heimdal-clients
+    - libpam-heimdal
+
+- name: copy kerberos config (/etc/krb5.conf)
+  copy: src=krb5.conf dest=/etc/krb5.conf
