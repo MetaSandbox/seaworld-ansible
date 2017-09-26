@@ -1,0 +1,8 @@
+{
+        "live-restore": true,
+        "storage-driver": "overlay2",
+        "log-opts": {
+                "max-size": "10m",
+                "max-file": "5"
+        }
+}
