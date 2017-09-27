@@ -1,0 +1,6 @@
+---
+
+- name: install cron-apt
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - cron-apt
