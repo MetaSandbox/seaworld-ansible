@@ -1,19 +1,8 @@
 ---
 
-- name: add metacentrum repository
-  apt_repository: repo={{ item }}
-  with_items:
-    - 'deb ftp://repo.metacentrum.cz/ all main pilot'
-    - 'deb-src ftp://repo.metacentrum.cz/ all main pilot'
-
-- name: download metacentrum keyring
-  get_url:
-    url: ftp://repo.metacentrum.cz/key.asc
-    dest: /tmp/metacentrum.key
-
-- name: install metacentrum keyring
-  apt_key:
-    file: /tmp/metacentrum.key
+- name: ensure metacentrum repo is present
+  include_role:
+    name: metacentrum_repo
 
 - name: install perun packages
   apt: name={{ item }} update_cache=yes
