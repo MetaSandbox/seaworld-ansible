@@ -1,0 +1,11 @@
+---
+
+- name: ensure metacentrum repo is present
+  include_role:
+    name: metacentrum_repo
+
+- name: install check-mk packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - check-mk-agent-meta-key
+    - check-mk-agent
