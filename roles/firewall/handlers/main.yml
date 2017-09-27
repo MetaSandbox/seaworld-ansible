@@ -4,6 +4,10 @@
   shell: iptables-restore < /etc/iptables/rules.v4
   listen: restart iptable-related services
 
+- name : restart ip6tables
+  shell: ip6tables-restore < /etc/iptables/rules.v6
+  listen: restart iptable-related services
+
 - name: restart fail2ban
   systemd: state=restarted enabled=yes name=fail2ban
   listen: restart iptable-related services

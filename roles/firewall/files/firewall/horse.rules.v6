@@ -2,11 +2,11 @@
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [1294:156956]
+:OUTPUT ACCEPT [0:0]
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -m comment --comment "000 Accept all established connections" -j ACCEPT
 -A INPUT -m conntrack --ctstate INVALID -m comment --comment "001 Drop all invalid connections" -j DROP
 -A INPUT -i lo -m comment --comment "002 Accept all loopback connections" -j ACCEPT
--A INPUT -p icmp -m comment --comment "003 Accept all connections over ICMP protocol" -j ACCEPT
+-A INPUT -p ipv6-icmp -m comment --comment "003 Accept all connections over IPv6 ICMP protocol" -j ACCEPT
 -A INPUT -p tcp -m multiport --dports 22 -m comment --comment "004 Accept all connections over SSH" -j ACCEPT
 -A INPUT -p udp -m multiport --dports 500,4500 -m comment --comment "006 Allow IPsec networking" -j ACCEPT
 -A INPUT -m comment --comment "999 Drop all the other connections" -j DROP

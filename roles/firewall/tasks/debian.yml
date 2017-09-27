@@ -11,7 +11,12 @@
   notify:
     - restart fail2ban
 
-- name: copy firewall rules
+- name: copy IPv4 firewall rules
   copy: src=firewall/{{ RANCHER_ROLE }}.rules.v4 dest=/etc/iptables/rules.v4
+  notify:
+    - restart iptable-related services
+
+- name: copy IPv6 firewall rules
+  copy: src=firewall/{{ RANCHER_ROLE }}.rules.v6 dest=/etc/iptables/rules.v6
   notify:
     - restart iptable-related services

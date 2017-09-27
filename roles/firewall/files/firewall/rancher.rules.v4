@@ -1,11 +1,14 @@
+# Firewall rules managed via ANSIBLE, don't edit manually
 *filter
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
-:OUTPUT ACCEPT [0:0]
--A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
--A INPUT -p icmp -j ACCEPT
--A INPUT -i lo -j ACCEPT
--A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
--A FORWARD -i eth1 -j ACCEPT
--A INPUT -j DROP
+:OUTPUT ACCEPT [1294:156956]
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -m comment --comment "000 Accept all established connections" -j ACCEPT
+-A INPUT -m conntrack --ctstate INVALID -m comment --comment "001 Drop all invalid connections" -j DROP
+-A INPUT -i lo -m comment --comment "002 Accept all loopback connections" -j ACCEPT
+-A INPUT -p icmp -m comment --comment "003 Accept all connections over ICMP protocol" -j ACCEPT
+-A INPUT -p tcp -m multiport --dports 22 -m comment --comment "004 Accept all connections over SSH" -j ACCEPT
+-A INPUT -p tcp -m multiport --dports 80,443 -m comment --comment "005 Accept all connections over HTTP/S" -j ACCEPT
+-A INPUT -p udp -m multiport --dports 500,4500 -m comment --comment "006 Allow IPsec networking" -j ACCEPT
+-A INPUT -m comment --comment "999 Drop all the other connections" -j DROP
 COMMIT
