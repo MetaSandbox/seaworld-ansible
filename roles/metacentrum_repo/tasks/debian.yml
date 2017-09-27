@@ -1,11 +1,5 @@
 ---
 
-- name: add metacentrum repository
-  apt_repository: repo={{ item }}
-  with_items:
-    - 'deb ftp://repo.metacentrum.cz/ all main pilot'
-    - 'deb-src ftp://repo.metacentrum.cz/ all main pilot'
-
 - name: download metacentrum keyring
   get_url:
     url: ftp://repo.metacentrum.cz/key.asc
@@ -14,3 +8,9 @@
 - name: install metacentrum keyring
   apt_key:
     file: /tmp/metacentrum.key
+
+- name: add metacentrum repository
+  apt_repository: repo={{ item }}
+  with_items:
+    - 'deb ftp://repo.metacentrum.cz/ all main pilot'
+    - 'deb-src ftp://repo.metacentrum.cz/ all main pilot'
