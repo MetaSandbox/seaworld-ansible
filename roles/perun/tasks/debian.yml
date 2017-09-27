@@ -14,7 +14,6 @@
 - name: install metacentrum keyring
   apt_key:
     file: /tmp/metacentrum.key
-    url: "ftp://repo.metacentrum.cz/key.asc"
 
 - name: install perun packages
   apt: name={{ item }} update_cache=yes
