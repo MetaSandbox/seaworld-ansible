@@ -1,0 +1,16 @@
+---
+
+- name: add IGTF repository
+  apt_repository: repo="deb  http://dist.eugridpma.info/distribution/igtf/current igtf accredited"
+
+- name: install IGTF keyring
+  apt_key:
+    url: http://dist.eugridpma.info/distribution/igtf/current/GPG-KEY-EUGridPMA-RPM-3
+
+- name: install IGTF packages
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - ca-policy-igtf-classic
+    - ca-policy-igtf-mics
+    - ca-policy-igtf-slcs
+    - fetch-crl
