@@ -1,5 +1,8 @@
 ---
 
+- name: install apt-transport-https package
+  apt: name=apt-transport-https update_cache=yes
+
 - name: add docker repository key
   apt_key: keyserver=keyserver.ubuntu.com id=9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 
@@ -9,7 +12,6 @@
 - name: install docker
   apt: name={{ item }} update_cache=yes
   with_items:
-    - apt-transport-https
     - ca-certificates
     - curl
     - gnupg2
