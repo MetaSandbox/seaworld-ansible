@@ -1,11 +1,11 @@
 [aquarium-dev]
-aquarium-dev.metacentrum.cz ansible_host=78.128.216.57
+aquarium-dev.metacentrum.cz
 
-[horse-dev]
+[seahorse-dev]
 seahorse2.metacentrum.cz
 
 [aquarium]
 aquarium.metacentrum.cz
 
-[horse]
+[seahorse]
 seahorse1.metacentrum.cz

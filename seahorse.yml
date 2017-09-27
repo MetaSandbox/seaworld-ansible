@@ -1,5 +1,5 @@
 - name: Setup seahorse rancher worker nodes (i.e. horse)
-  hosts: horse-dev
+  hosts: seahorse
   remote_user: root
   roles:
     - docker
