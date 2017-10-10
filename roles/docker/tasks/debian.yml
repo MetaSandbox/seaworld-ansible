@@ -16,7 +16,12 @@
     - curl
     - gnupg2
     - software-properties-common
-    - docker-ce
+    - docker-ce=17.06.0~ce-0~debian
+
+- name: hold docker package version
+  dpkg_selections:
+    name: docker-ce
+    selection: hold
 
 - name: copy docker config (/etc/docker/daemon.json)
   copy: src={{ RANCHER_ROLE }}.daemon.json dest=/etc/docker/daemon.json
