@@ -1,0 +1,43 @@
+---
+
+- name: check certificate presence
+  stat:
+    path: /etc/grid-security/{{ ansible_hostname }}-cert.pem
+  register: cert
+
+- name: fail if certificate does not exist
+  fail:
+    msg: "Apache certificate is missing! (/etc/grid-security/{{ ansible_hostname }}-cert.pem)"
+  when: cert.stat.exists == False
+
+- name: check certificate key presence
+  stat:
+    path: /etc/grid-security/{{ ansible_hostname }}-key.pem
+  register: certkey
+
+- name: fail if certificate key does not exist
+  fail:
+    msg: "Apache certificate is missing! (/etc/grid-security/{{ ansible_hostname }}-key.pem)"
+  when: certkey.stat.exists == False
+
+- name: install apache
+  apt: name={{ item }} update_cache=yes
+  with_items:
+    - apache2
+  notify:
+    - restart apache
+
+- name: enable apache modules
+  apache2_module: name={{ item }} state=present
+  with_items:
+    - ssl
+    - proxy
+    - rewrite
+    - request
+    - headers
+    - proxy_http
+  notify:
+    - restart apache
+
+- name: create virtual host file (rancher.conf)
+  template: src=rancher.conf dest=/etc/apache2/sites-available/rancher.conf
