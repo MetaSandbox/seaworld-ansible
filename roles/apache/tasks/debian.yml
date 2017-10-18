@@ -41,3 +41,10 @@
 
 - name: create virtual host file (rancher.conf)
   template: src=rancher.conf dest=/etc/apache2/sites-available/rancher.conf
+
+- name: apache enable site rancher.conf
+  command: a2ensite rancher
+  args:
+    creates: /etc/apache2/sites-enabled/rancher.conf
+  notify:
+  - restart apache
