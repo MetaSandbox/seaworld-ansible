@@ -43,6 +43,13 @@
 - name: create virtual host file (rancher.conf)
   template: src=rancher.conf dest=/etc/apache2/sites-available/rancher.conf
 
+- name: apache disable default site
+  command: a2dissite 000-default
+  args:
+    removes: /etc/apache2/sites-enabled/000-default.conf
+  notify:
+  - restart apache
+
 - name: apache enable site rancher.conf
   command: a2ensite rancher
   args:
