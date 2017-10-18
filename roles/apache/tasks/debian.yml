@@ -36,6 +36,7 @@
     - request
     - headers
     - proxy_http
+    - proxy_wstunnel
   notify:
     - restart apache
 
